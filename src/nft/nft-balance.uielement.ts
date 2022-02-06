@@ -1,4 +1,4 @@
-import { documents, path } from '@earnkeeper/ekp-sdk-nestjs';
+import { collection, documents, path } from '@earnkeeper/ekp-sdk-nestjs';
 import {
   Col,
   Container,
@@ -9,6 +9,7 @@ import {
   formatTemplate,
   formatToken,
   Image,
+  isBusy,
   navigate,
   PageHeaderTile,
   Row,
@@ -79,6 +80,7 @@ function tableRow(): UiElement {
             defaultSortFieldId: 'value',
             filterable: false,
             pagination: false,
+            isBusy: isBusy(collection(NftBalanceDocument)),
             onRowClicked: navigate('$.links.explorer', true, true),
           }),
         ],
