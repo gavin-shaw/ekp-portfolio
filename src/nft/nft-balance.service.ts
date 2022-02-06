@@ -108,7 +108,45 @@ export class NftBalanceService {
     return nftLogos;
   }
 
+  async getOpenseaLowestTrade(
+    contractAddress: string,
+  ): Promise<moralis.TradeDto> {
+    const numberOfDaysMax = 7;
+    let lowestTrade: moralis.TradeDto;
+
+    for (
+      let numberOfDays = 1;
+      numberOfDays <= numberOfDaysMax;
+      numberOfDays++
+    ) {
+      lowestTrade = await this.moralisService.lowestPriceOfNft(
+        'eth',
+        contractAddress,
+        numberOfDays,
+      );
+
+      if (!!lowestTrade) {
+        break;
+      }
+    }
+
+    return lowestTrade;
+  }
+
   async getNftPrice(chainId: string, contractAddress: string) {
+    if (chainId === 'eth') {
+      const lowestTrade = await this.getOpenseaLowestTrade(contractAddress);
+
+      if (!!lowestTrade) {
+        return {
+          chainId,
+          contractAddress,
+          price: Number(ethers.utils.formatEther(lowestTrade.price)),
+          updated: moment(lowestTrade.block_timestamp).unix(),
+        };
+      }
+    }
+
     const nftTransfers = await this.moralisService.nftContractTransfersOf(
       chainId as ChainId,
       contractAddress,
@@ -148,6 +186,13 @@ export class NftBalanceService {
             if (!!tokenTransferLog) {
               if (!['', '0x'].includes(tokenTransferLog.data)) {
                 const amount = ethers.BigNumber.from(tokenTransferLog.data);
+
+                if (
+                  contractAddress.toLowerCase() ===
+                  '0xb81cf242671edae57754b1a061f62af08b32926a'
+                ) {
+                  console.log(nftTransfer.transaction_hash);
+                }
 
                 const valueTokenAddress = tokenTransferLog.address;
 
