@@ -3,7 +3,3 @@ dependencies:
   - name: redis
     version: "15.6.8"
     repository: "https://charts.bitnami.com/bitnami"
-
-  - name: mongodb
-    version: "10.30.8"
-    repository: "https://charts.bitnami.com/bitnami"

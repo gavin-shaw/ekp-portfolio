@@ -3,7 +3,8 @@ redis:
     enabled: false
   replica:
     replicaCount: 1
-
-mongodb:
-  auth:
-    enabled: false
+    persistence:
+      enabled: false
+  master:
+    persistence:
+      enabled: false
