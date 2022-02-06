@@ -14,7 +14,7 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "@earnkeeper/ekp-ui": "^0.1.3",
-    "@earnkeeper/ekp-sdk-nestjs": "^0.4.5"
+    "@earnkeeper/ekp-sdk-nestjs": "^0.4.6"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
