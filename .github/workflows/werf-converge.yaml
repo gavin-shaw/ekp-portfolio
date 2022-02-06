@@ -32,8 +32,7 @@ jobs:
 
       - name: Run werf commands
         run: |
-          werf helm repo add bitnami https://grafana.github.io/helm-charts
-          werf helm repo add grafana https://charts.bitnami.com/bitnami
+          werf helm repo add bitnami https://charts.bitnami.com/bitnami
           werf helm dependency update .helm
           source $(werf ci-env github --as-file)
           werf render

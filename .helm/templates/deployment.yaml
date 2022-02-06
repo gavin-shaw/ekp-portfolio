@@ -32,6 +32,8 @@ spec:
               value: '{{ .Values.mongodb.host }}'
             - name: REDIS_HOST
               value: 'ekp-portfolio-redis-master'
+            - name: SENTRY_DSN
+              value: '{{ .Values.sentry.dsn }}'
             - name: OPENSEA_API_KEY
               value: '{{ .Values.opensea.apiKey }}'
           ports:
