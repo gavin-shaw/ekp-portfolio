@@ -37,6 +37,3 @@ spec:
           ports:
             - containerPort: 3001
               protocol: TCP
-          args:
-            - -cpus
-            - '2'
